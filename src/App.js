@@ -4,6 +4,7 @@ function App() {
   const [text, setText] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(5);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [wordCount, setWordCount] = useState(-1);
 
   function wordCounter(text) {
     const words = text.trim().split(' ');
@@ -15,8 +16,9 @@ function App() {
       setTimeout(() => {
         setTimeRemaining( time => time -1);
       }, 1000)
-    } else{
+    } else if(timeRemaining === 0){
       setHasGameStarted(false);
+      setWordCount(wordCounter(text));
     }
   }, [timeRemaining, hasGameStarted])
 
@@ -26,7 +28,7 @@ function App() {
       <textarea value={text} onChange ={e => setText(e.target.value)} />
       <h4>Time remaining: {timeRemaining}</h4>
       <button onClick={() => setHasGameStarted(true)}>Start</button>
-      <h1>Word count: ???</h1>
+      {wordCount >= 0 ? <h1>Word count: {wordCount}</h1> : '' }
     </>
   );
 }
