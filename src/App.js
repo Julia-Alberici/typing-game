@@ -37,9 +37,9 @@ function App() {
   return (
     <>
       <h1>How fast do you type?</h1>
-      <textarea value={text} onChange ={e => setText(e.target.value)} />
+      <textarea disabled={!hasGameStarted} value={text} onChange ={e => setText(e.target.value)} />
       <h4>Time remaining: {timeRemaining}</h4>
-      <button onClick={startGame}>Start</button>
+      <button disabled={hasGameStarted} onClick={startGame}>Start</button>
       {wordCount >= 0 ? <h1>Word count: {wordCount}</h1> : '' }
     </>
   );
