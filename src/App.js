@@ -1,7 +1,7 @@
 import useWordGame from './hooks/useWordGame';
 
 function App() {
-  const game = useWordGame(5)
+  const game = useWordGame()
 
   return (
     <>

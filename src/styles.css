@@ -28,8 +28,7 @@ button:disabled {
 }
 
 h1 {
-    font-size: 20px;
-    text-align:center;
+    text-align: center;
 }
 
 textarea {
@@ -41,6 +40,7 @@ textarea {
     height: 200px;
     background: #00b800;
     padding: 10px;
+    resize: none;
 }
 
 textarea:disabled {
