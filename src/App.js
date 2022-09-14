@@ -1,46 +1,15 @@
-import {useEffect, useState} from 'react';
+import useWordGame from './hooks/useWordGame';
 
 function App() {
-  const STARTING_TIME = 5;
-  const [text, setText] = useState("");
-  const [timeRemaining, setTimeRemaining] = useState(STARTING_TIME);
-  const [hasGameStarted, setHasGameStarted] = useState(false);
-  const [wordCount, setWordCount] = useState(-1);
-
-  function wordCounter(text) {
-    const words = text.trim().split(' ');
-    return words.filter(word => word !== '').length;
-  }
-
-  function startGame() {
-    setText("");
-    setTimeRemaining(STARTING_TIME);
-    setWordCount(-1);
-    setHasGameStarted(true)
-  }
-
-  function endGame() {
-    setHasGameStarted(false);
-    setWordCount(wordCounter(text));
-  }
-
-  useEffect(() => {
-    if(timeRemaining > 0 && hasGameStarted) {
-      setTimeout(() => {
-        setTimeRemaining( time => time -1);
-      }, 1000)
-    } else if(timeRemaining === 0){
-      endGame();
-    }
-  }, [timeRemaining, hasGameStarted])
+  const game = useWordGame(5)
 
   return (
     <>
       <h1>How fast do you type?</h1>
-      <textarea disabled={!hasGameStarted} value={text} onChange ={e => setText(e.target.value)} />
-      <h4>Time remaining: {timeRemaining}</h4>
-      <button disabled={hasGameStarted} onClick={startGame}>Start</button>
-      {wordCount >= 0 ? <h1>Word count: {wordCount}</h1> : '' }
+      <textarea ref={game.textareaRef} disabled={!game.hasGameStarted} value={game.text} onChange ={e => game.setText(e.target.value)} />
+      <h4>Time remaining: {game.timeRemaining}</h4>
+      <button disabled={game.hasGameStarted} onClick={game.startGame}>Start</button>
+      {game.wordCount >= 0 ? <h1>Word count: {game.wordCount}</h1> : '' }
     </>
   );
 }
